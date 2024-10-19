@@ -1,0 +1,6 @@
+﻿services:
+  telegrambotcode418service:
+    image: telegrambotcode418service
+    build:
+      context: .
+      dockerfile: TelegramBotCode418Service/Dockerfile

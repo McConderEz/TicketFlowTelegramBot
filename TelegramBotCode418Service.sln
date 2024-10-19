@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotCode418Service", "TelegramBotCode418Service\TelegramBotCode418Service.csproj", "{FE804F5E-72DC-41C4-89A0-BAEBB97CE8BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19B6ADBC-2DD7-4DA7-AE2D-DC6F42CE4C88}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotCode418Service.Infrastructure", "TelegramBotCode418Service.Infrastructure\TelegramBotCode418Service.Infrastructure.csproj", "{09420C76-0F6A-46AE-87BA-10F71B180E1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE804F5E-72DC-41C4-89A0-BAEBB97CE8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE804F5E-72DC-41C4-89A0-BAEBB97CE8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE804F5E-72DC-41C4-89A0-BAEBB97CE8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE804F5E-72DC-41C4-89A0-BAEBB97CE8BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09420C76-0F6A-46AE-87BA-10F71B180E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09420C76-0F6A-46AE-87BA-10F71B180E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09420C76-0F6A-46AE-87BA-10F71B180E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09420C76-0F6A-46AE-87BA-10F71B180E1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
