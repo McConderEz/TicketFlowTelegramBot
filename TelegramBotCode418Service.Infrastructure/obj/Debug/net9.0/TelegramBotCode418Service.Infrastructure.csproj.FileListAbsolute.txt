@@ -1,0 +1,14 @@
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\bin\Debug\net9.0\TelegramBotCode418Service.Infrastructure.deps.json
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\bin\Debug\net9.0\TelegramBotCode418Service.Infrastructure.runtimeconfig.json
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\bin\Debug\net9.0\TelegramBotCode418Service.Infrastructure.dll
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\bin\Debug\net9.0\TelegramBotCode418Service.Infrastructure.pdb
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.AssemblyInfo.cs
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.dll
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\refint\TelegramBotCode418Service.Infrastructure.dll
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.pdb
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.genruntimeconfig.cache
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\ref\TelegramBotCode418Service.Infrastructure.dll
