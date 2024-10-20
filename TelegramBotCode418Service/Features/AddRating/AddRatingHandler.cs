@@ -11,13 +11,16 @@ using PRTelegramBot.Utils;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using TelegramBotCode418Service.Cache;
+using TelegramBotCode418Service.Features.HttpHandlers;
 using TelegramBotCode418Service.Infrastructure;
 using TelegramBotCode418Service.Models;
 
 namespace TelegramBotCode418Service.Features.AddRating;
 
 [BotHandler]
-public class AddRatingHandler(ApplicationDbContext applicationDbContext)
+public class AddRatingHandler(
+    ApplicationDbContext applicationDbContext,
+    HttpPostHandlers httpClientHandler)
 {
     [SlashHandler("/review")]
     [ReplyMenuHandler("Оставить отзыв")]
@@ -80,11 +83,12 @@ public class AddRatingHandler(ApplicationDbContext applicationDbContext)
 
         var rating = new Rating
         {
-            Rate = handler.GetCache<RatingCache>().Rating,
+            ChatId = update.Message!.Chat.Id.ToString(),
+            Rate = handler!.GetCache<RatingCache>().Rating,
             Message = handler.GetCache<RatingCache>().Message
         };
-        
-        //TODO: Послать http
+
+        await httpClientHandler.SendReviewRequestAsync(rating);
         
         handler.GetCache<RatingCache>().ClearData();
     }
