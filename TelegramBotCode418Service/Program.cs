@@ -3,17 +3,20 @@ using PRTelegramBot.Core;
 using PRTelegramBot.Extensions;
 using Telegram.Bot;
 using TelegramBotCode418Service;
+using TelegramBotCode418Service.Features.HttpHandlers;
 using TelegramBotCode418Service.Infrastructure;
 using TelegramBotCode418Service.Options;
 
 
 const string EXIT_COMMAND = "exit";
 
+
+
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<TelegramBotBackgroundService>();
+builder.Services.AddSingleton<ApplicationDbContext>();
 
 builder.Services.AddBotHandlers();
-builder.Services.AddSingleton<ApplicationDbContext>();
 
 builder.Services.AddTransient<ITelegramBotClient, TelegramBotClient>(provider =>
 {
@@ -21,15 +24,13 @@ builder.Services.AddTransient<ITelegramBotClient, TelegramBotClient>(provider =>
 
     return new(token);
 });
-//builder.Services.AddSingleton<HttpPostHandlers>();
+builder.Services.AddSingleton<HttpPostHandlers>();
 
 builder.Services.Configure<TelegramOptions>(builder.Configuration.GetSection(TelegramOptions.Telegram));
 
 var host = builder.Build();
 
 host.Run();
-
-
 
 while (true)
 {

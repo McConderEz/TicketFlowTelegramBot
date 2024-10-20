@@ -23,8 +23,4 @@
     <ItemGroup>
       <ProjectReference Include="..\TelegramBotCode418Service.Infrastructure\TelegramBotCode418Service.Infrastructure.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Features\AddRating\" />
-    </ItemGroup>
 </Project>
