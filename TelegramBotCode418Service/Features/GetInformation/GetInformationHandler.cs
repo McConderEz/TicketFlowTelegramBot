@@ -23,7 +23,7 @@ public class GetInformationHandler(
         if (!isAuthenticated)
         {
             await PRTelegramBot.Helpers.Message.Send(
-                botClient, update, "Новенький, пошёл нахуй с чата");
+                botClient, update, "Вы не аутентифицированы!");
             return;
         }
 

@@ -53,7 +53,7 @@ public class HttpPostHandlers
         
         using var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
     
-        using var request = new HttpRequestMessage(HttpMethod.Put, url)
+        using var request = new HttpRequestMessage(HttpMethod.Post, url)
         {
             Content = content
         };
@@ -63,7 +63,7 @@ public class HttpPostHandlers
         if (response.IsSuccessStatusCode)
         {
             var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            _logger.LogInformation($"Response: {responseData}");
+            _logger.LogInformation($"Response: {response.StatusCode}\n Data: {responseData}");
         }
         else
         {

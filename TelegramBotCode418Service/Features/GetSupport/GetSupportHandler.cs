@@ -12,7 +12,7 @@ namespace TelegramBotCode418Service.Features.GetSupport;
 public class GetSupportHandler(ApplicationDbContext applicationDbContext,ILogger<GetSupportHandler> logger) : IHandler
 {
     [SlashHandler("/support")]
-    [ReplyMenuHandler("Получить контакты поддержки")]
+    [ReplyMenuHandler("Поддержка")]
     public async Task Handle(
         ITelegramBotClient botClient, 
         Update update)
@@ -21,7 +21,7 @@ public class GetSupportHandler(ApplicationDbContext applicationDbContext,ILogger
         if (!isAuthenticated)
         {
             await PRTelegramBot.Helpers.Message.Send(
-                botClient, update, "Новенький, пошёл нахуй с чата");
+                botClient, update, "Вы не аутентифицированы!");
             return;
         }
         
