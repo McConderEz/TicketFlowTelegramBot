@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext
         _configuration = configuration;
         Database.EnsureCreated();
     }
+    
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -25,5 +26,12 @@ public class ApplicationDbContext : DbContext
             .HasKey(u => u.ChatId);
     }
 
+    public async Task<bool> IsAuthenticated(long chatId, CancellationToken cancellationToken = default)
+    {
+        var user = await Users
+            .FirstOrDefaultAsync(u => u.ChatId == chatId.ToString(), cancellationToken);
+        return user != null;
+    }
+    
     public DbSet<User> Users => Set<User>();
 }

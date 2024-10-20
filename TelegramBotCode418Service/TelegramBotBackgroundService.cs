@@ -1,11 +1,8 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using PRTelegramBot.Attributes;
 using PRTelegramBot.Core;
 using PRTelegramBot.Models;
-using PRTelegramBot.Models.Enums;
-using PRTelegramBot.Models.EventsArgs;
 using PRTelegramBot.Utils;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
@@ -13,8 +10,8 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBotCode418Service.Config;
+using TelegramBotCode418Service.Events;
 using TelegramBotCode418Service.Extensions;
-using TelegramBotCode418Service.Features.Authentication;
 using TelegramBotCode418Service.Infrastructure;
 using TelegramBotCode418Service.Shared;
 using User = TelegramBotCode418Service.Infrastructure.Entities.User;
@@ -61,20 +58,9 @@ public class TelegramBotBackgroundService : BackgroundService
             .SetClearUpdatesOnStart(true)
             .SetServiceProvider(_serviceProvider)
             .Build();
-
-        telegram.Events.UpdateEvents.OnPreUpdate += On_PreUpdate;
         
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            await telegram.Start();
-        }
-    }
-    
-    private async Task<UpdateResult> On_PreUpdate(BotEventArgs args)
-    {
-        Console.WriteLine();
-        
-        return UpdateResult.Continue;
+        telegram.Events.OnUserStartWithArgs += new TelegramBotEvents(_applicationDbContext).OnUserStartWithArgs;
+        await telegram.Start();
     }
     
     
@@ -166,6 +152,8 @@ public class TelegramBotBackgroundService : BackgroundService
         var menu = MenuGenerator.ReplyKeyboard(1, keyBoards);
         var option = new OptionMessage();
         option.MenuReplyKeyboardMarkup = menu;
+        
+        _logger.LogInformation("Десериализованы пункты меню в клавиатуру");
         
         return option;
     }

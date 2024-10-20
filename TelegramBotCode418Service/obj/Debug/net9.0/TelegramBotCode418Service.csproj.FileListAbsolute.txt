@@ -51,3 +51,4 @@ C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service
 C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service\bin\Debug\net9.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service\bin\Debug\net9.0\TelegramBotCode418Service.Infrastructure.dll
 C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service\bin\Debug\net9.0\TelegramBotCode418Service.Infrastructure.pdb
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service\obj\Debug\net9.0\TelegramBotCode418Service.sourcelink.json

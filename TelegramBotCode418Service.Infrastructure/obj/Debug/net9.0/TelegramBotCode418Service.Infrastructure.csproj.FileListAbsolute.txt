@@ -12,3 +12,4 @@ C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service
 C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.pdb
 C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.genruntimeconfig.cache
 C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\ref\TelegramBotCode418Service.Infrastructure.dll
+C:\Users\rusta\RiderProjects\TelegramBotCode418Service\TelegramBotCode418Service.Infrastructure\obj\Debug\net9.0\TelegramBotCode418Service.Infrastructure.sourcelink.json
