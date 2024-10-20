@@ -14,7 +14,7 @@ public class GetInformationHandler(
 {
     
     [SlashHandler("/help")]
-    [ReplyMenuHandler("Справочная информация")]
+    [ReplyMenuHandler("Помощь")]
     public async Task Handle(
         ITelegramBotClient botClient, 
         Update update)
