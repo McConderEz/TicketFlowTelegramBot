@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
+using System.Text;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using PRTelegramBot.Attributes;
@@ -79,8 +81,36 @@ public class BookTicketHandler(
         string msg = "Выберите услуги:";
         var handler = update.GetStepHandler<StepTelegram>();
         //handler!.GetCache<RatingCache>().Rating = (rating!.c / 100).ToString();
-        //handler.RegisterNextStep(AddRatingMessageHandle);
+        handler.RegisterNextStep(PickCalendar);
         await PRTelegramBot.Helpers.Message.Send(botClient, update, msg, option);
+    }
+    
+    private async Task SelectTime(ITelegramBotClient botClient, Update update)
+    {
+        var services = GetTimeKeyBoard();
+        
+        var menu = MenuGenerator.InlineKeyboard(1, services);
+        
+        var option = new OptionMessage();
+        option.MenuInlineKeyboardMarkup = menu;
+        
+        string msg = "Выберите время:";
+        var handler = update.GetStepHandler<StepTelegram>();
+        //handler!.GetCache<RatingCache>().Rating = (rating!.c / 100).ToString();
+        handler.RegisterNextStep(Stop);
+        await PRTelegramBot.Helpers.Message.Send(botClient, update, msg, option);
+    }
+
+    private static string Time;
+    
+    private async Task Stop(ITelegramBotClient botClient, Update update)
+    {
+        var handler = update.GetStepHandler<StepTelegram>();
+
+        var date = handler.GetCache<BookTicketCache>().Time.Date.ToString().Split(' ').First();
+        
+        await PRTelegramBot.Helpers.Message.Send(botClient, update, $"Вы забронировали талон на {date} {Time}. " +
+                                                                    "Вы получите его за 5 минут до назначенного времени");
     }
 
     /*private async Task AddRatingMessageHandle(ITelegramBotClient botClient, Update update)
@@ -91,6 +121,18 @@ public class BookTicketHandler(
         await PRTelegramBot.Helpers.Message.Send(botClient, update, "Спасибо за отзыв!");
         await SendHttpRequestWithReviewHandle(botClient, update);
     }*/
+    
+    private async Task PickCalendar(ITelegramBotClient botClient, Update update)
+    {
+        try
+        {
+            await CalendarUtils.Create(botClient, update, CustomHeaderDate.CalendarCallback, "Выберите дату:");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
     
     private async Task SendHttpRequestWithReviewHandle(ITelegramBotClient botClient, Update update)
     {
@@ -167,7 +209,53 @@ public class BookTicketHandler(
             string msg = $"Идентификатор который вы передали {command.Data.EntityId}";
             await PRTelegramBot.Helpers.Message.Send(botClient, update, msg);
         }
-        //await AddRatingHandle(botClient, update);
+        await PickCalendar(botClient, update);
+    }
+    
+    
+    [InlineCallbackHandler<CustomHeaderDate>(
+        CustomHeaderDate.CalendarCallback)]
+    public async Task InlineDateHandler(ITelegramBotClient botClient, Update update)
+    {
+        /*var command = InlineCallback<EntityTCommand<long>>
+            .GetCommandByCallbackOrNull(update.CallbackQuery.Data);
+        if (command is null)
+        {
+            string msg = $"Идентификатор который вы передали {command.Data.EntityId}";
+            await PRTelegramBot.Helpers.Message.Send(botClient, update, msg);
+        }*/
+        var bot = botClient.GetBotDataOrNull();
+        using var inlineHandler = new InlineCallback<CalendarTCommand>(botClient, update);
+        var command = inlineHandler.GetCommandByCallbackOrNull();
+        var handler = update.GetStepHandler<StepTelegram>();
+
+        handler.GetCache<BookTicketCache>().Time = command.Data.Date;
+
+
+        await SelectTime(botClient, update);
+    }
+    
+    
+    [InlineCallbackHandler<CustomHeaderTime>(
+        CustomHeaderTime.Time1,
+        CustomHeaderTime.Time2,
+        CustomHeaderTime.Time3,
+        CustomHeaderTime.Time4,
+        CustomHeaderTime.Time5,
+        CustomHeaderTime.Time6)]
+    public async Task InlineTimesHandler(ITelegramBotClient botClient, Update update)
+    {
+        var command = InlineCallback<EntityTCommand<long>>
+            .GetCommandByCallbackOrNull(update.CallbackQuery.Data);
+        if (command is null)
+        {
+            string msg = $"Идентификатор который вы передали {command.Data.EntityId}";
+            await PRTelegramBot.Helpers.Message.Send(botClient, update, msg);
+        }
+
+        Time = "12:00";
+        
+        await Stop(botClient, update);
     }
     
     private List<IInlineContent> GetDeptsKeyboard()
@@ -207,10 +295,6 @@ public class BookTicketHandler(
         var ratingKeyboard = new List<IInlineContent>
         {
             new InlineCallback<EntityTCommand<int>>
-                ("📤 Отправить почту или посылку", CustomHeaderServices.Category1, new EntityTCommand<int>(1600)),
-            new InlineCallback<EntityTCommand<int>>
-                ("📥 Получить почту или посылку", CustomHeaderServices.Category2, new EntityTCommand<int>(1700)),
-            new InlineCallback<EntityTCommand<int>>
                 ("💸 Отправить денежный перевод", CustomHeaderServices.Category3, new EntityTCommand<int>(1800)),
             new InlineCallback<EntityTCommand<int>>
                 ("💳 Получить денежный перевод", CustomHeaderServices.Category4, new EntityTCommand<int>(1900)),
@@ -222,6 +306,38 @@ public class BookTicketHandler(
         
         return ratingKeyboard;
     }
+    
+    private List<IInlineContent> GetTimeKeyBoard()
+    {
+        var ratingKeyboard = new List<IInlineContent>
+        {
+            new InlineCallback<EntityTCommand<int>>
+                ("8:00", CustomHeaderTime.Time1, new EntityTCommand<int>(3000)),
+            new InlineCallback<EntityTCommand<int>>
+                ("9:00", CustomHeaderTime.Time2, new EntityTCommand<int>(4000)),
+            new InlineCallback<EntityTCommand<int>>
+                ("10:00", CustomHeaderTime.Time3, new EntityTCommand<int>(5000)),
+            new InlineCallback<EntityTCommand<int>>
+                ("11:00", CustomHeaderTime.Time4, new EntityTCommand<int>(6000)),
+            new InlineCallback<EntityTCommand<int>>
+                ("12:00", CustomHeaderTime.Time5, new EntityTCommand<int>(7000)),
+            new InlineCallback<EntityTCommand<int>>
+                ("13:00", CustomHeaderTime.Time6, new EntityTCommand<int>(8000)),
+            new InlineCallback<EntityTCommand<int>>
+                ("14:00", CustomHeaderTime.Time7, new EntityTCommand<int>(7655)),
+            new InlineCallback<EntityTCommand<int>>
+                ("15:00", CustomHeaderTime.Time8, new EntityTCommand<int>(600660)),
+            new InlineCallback<EntityTCommand<int>>
+                ("16:00", CustomHeaderTime.Time9, new EntityTCommand<int>(56854)),
+            new InlineCallback<EntityTCommand<int>>
+                ("17:00", CustomHeaderTime.Time10, new EntityTCommand<int>(56756)),
+            new InlineCallback<EntityTCommand<int>>
+                ("18:00", CustomHeaderTime.Time11, new EntityTCommand<int>(34246)),
+        };
+        
+        return ratingKeyboard;
+    }
+
     
 }
 
@@ -265,6 +381,43 @@ enum CustomHeaderServices
     [Description("Получить пенсию или пособие")]
     Category6 = 2100
 }
+
+[InlineCommand] 
+enum CustomHeaderTime
+{
+    [Description("фывфыв")]
+    Time1 = 3000,
+    [Description("Получить почту или посылку")]
+    Time2= 4000,
+    [Description("фыфыфвфыв")]
+    Time3 = 5000,
+    [Description("фывфы")]
+    Time4 = 6000,
+    [Description("ячсяч")]
+    Time5 = 7000,
+    [Description("ячсч")]
+    Time6 = 8000,
+    [Description("фывфыв")]
+    Time7 = 978970,
+    [Description("ascas sacasосылку")]
+    Time8= 87705,
+    [Description("vb ")]
+    Time9 = 567,
+    [Description("фыbfgdbgвфы")]
+    Time10 = 6045600,
+    [Description("ячtrrtсяч")]
+    Time11 = 45867,
+    [Description("ячс,k,oi,ioч")]
+    Time12 = 9754
+}
+
+[InlineCommand] 
+enum CustomHeaderDate
+{
+    [Description("фывsadasdфыв")]
+    CalendarCallback = 11000
+}
+
 
 /*public class Response
 {

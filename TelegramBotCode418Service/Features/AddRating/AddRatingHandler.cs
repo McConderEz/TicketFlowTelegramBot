@@ -23,7 +23,7 @@ public class AddRatingHandler(
     HttpPostHandlers httpClientHandler)
 {
     [SlashHandler("/review")]
-    [ReplyMenuHandler("Оставить отзыв")]
+    [ReplyMenuHandler("Отзыв")]
     public async Task SendFeedback(
         ITelegramBotClient botClient, 
         Update update)
